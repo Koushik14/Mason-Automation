@@ -360,4 +360,8 @@ exports.MyAccountPage = class MyAccountPage{
     async validateWishListPage(){
         await expect(this.page).toHaveURL(/.*wishlist/);
     }
+
+    async validateMyAccountDashboardNavigation(){
+        await expect(this.page).toHaveURL(/.*dashboard/);
+    }
 }

@@ -347,7 +347,6 @@ test.describe("Mason Commerce Tool Site", ()=>{
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
-    await myaccountPage.clickMyAccountOrderLink();
     await myaccountPage.clickMyAccountCreditLink();
     await myaccountPage.validateStoneberryCreditPage();
     await page.screenshot({ path: './screenshots/MyAccountStoneberryCreditPage.png', fullPage: true });
@@ -368,7 +367,6 @@ test.describe("Mason Commerce Tool Site", ()=>{
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
-    await myaccountPage.clickMyAccountOrderLink();
     await myaccountPage.clickMyAccountMakeaPaymentLink();
     await myaccountPage.validateMakeaPaymentPage();
     await page.screenshot({ path: './screenshots/MyAccountMakeaPaymentPage.png', fullPage: true });
@@ -389,7 +387,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
-    await myaccountPage.clickMyAccountOrderLink();
+    await myaccountPage.validateMyAccountDashboardNavigation();
     await myaccountPage.clickMyAccountWishListLink();
     await myaccountPage.validateWishListPage();
     await page.screenshot({ path: './screenshots/MyAccountWishListPage.png', fullPage: true });
