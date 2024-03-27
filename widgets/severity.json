@@ -1,1 +1,1 @@
-[{"uid":"785cc9ed1ea4a258","name":"Validate user should be able to navigate to WishList Page in My account","time":{"start":1711540811194,"stop":1711540820686,"duration":9492},"status":"passed","severity":"normal"}]
+[{"uid":"edd27560f14e416e","name":"Validate user should be able to navigate to WishList Page in My account","time":{"start":1711541288901,"stop":1711541299669,"duration":10768},"status":"failed","severity":"normal"}]
