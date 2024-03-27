@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "@playwright/test": "^1.42.1",
+    "allure-playwright": "^2.14.1",
+    "playwright": "^1.42.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
