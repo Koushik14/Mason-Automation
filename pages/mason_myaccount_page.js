@@ -109,7 +109,7 @@ exports.MyAccountPage = class MyAccountPage{
         await this.myaccount_savedcreditcards_link.click();
     }
     async clickMyAccountWishListLink(){
-        await this.myaccount_wishlist_link.click();
+        await this.myaccount_wishlist_link.first().click();
     }
     async clickMyAccountNeedHelpLink(){
         await this.myaccount_needhelp_link.click();
