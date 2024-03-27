@@ -1,2 +1,0 @@
-default shipping address:Default Billing & Shipping Address:
-default address:Testing Sample Nodia sector  

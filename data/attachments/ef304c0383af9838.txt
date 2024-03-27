@@ -1,2 +1,0 @@
-firstlastname:Dummy r Testing
-addressline1 : 555 Delhi Place 
