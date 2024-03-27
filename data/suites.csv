@@ -1,2 +1,2 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Wed Mar 27 11:52:24 UTC 2024","Wed Mar 27 11:52:34 UTC 2024","9480","Mason Commerce Tool Site - Chrome Browser","mason_sb.spec.js","Mason Commerce Tool Site","","","Validate user should be able to navigate to WishList Page in My account",""
+"passed","Wed Mar 27 12:00:11 UTC 2024","Wed Mar 27 12:00:20 UTC 2024","9492","Mason Commerce Tool Site - Chrome Browser","mason_sb.spec.js","Mason Commerce Tool Site","","","Validate user should be able to navigate to WishList Page in My account",""
