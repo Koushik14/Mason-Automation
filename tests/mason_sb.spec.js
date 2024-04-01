@@ -82,7 +82,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
   })
 
   test("Validate user should be able to login in to site and navigate to My account",async({page},testInfo)=>{ 
-    test.slow();
+    //test.slow();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await page.screenshot({ path: './screenshots/MyAccountDrawer.png', fullPage: true });
@@ -103,7 +103,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
   })
 
   test("Validate user should be able to add new address in My account",async({page},testInfo)=>{ 
-    test.slow();
+    //test.slow();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -133,7 +133,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
   })
 
   test("Validate user should be redirected to the address page in My account",async({page},testInfo)=>{ 
-    test.slow();
+    //test.slow();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -146,7 +146,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
   })
 
   test("Validate user should be able to remove any existing address page in My account",async({page},testInfo)=>{ 
-    test.slow();
+    //test.slow();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -161,7 +161,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
   })
 
   test("Validate user should be able to edit any existing address page in My account",async({page},testInfo)=>{ 
-    test.slow();
+    //test.slow();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -183,7 +183,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
   })
 
   test("Validate user should be able to set any existing address as default address in My account",async({page},testInfo)=>{ 
-    test.slow();
+    //test.slow();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -201,7 +201,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
   })
 
   test("Validate user should be able to navigate to My Profile page in My account",async({page},testInfo)=>{ 
-    test.slow();
+    //test.slow();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -214,7 +214,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
   })
 
   test("Validate user should be able to update contact information in My Profile page in My account",async({page},testInfo)=>{ 
-    test.slow();
+    //test.slow();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -231,7 +231,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
   })
 
   test("Validate user should be able to navigate to Change password under My Profile section in My account",async({page},testInfo)=>{ 
-    test.slow();
+    //test.slow();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -244,7 +244,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
   })
 
   test("Validate user should be able to navigate to Orders Page in My account",async({page},testInfo)=>{ 
-    test.slow();
+    //test.slow();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -258,7 +258,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
   })
 
   test.skip("Validate user should be able to navigate to Single Orders Look up Page in My account",async({page},testInfo)=>{ 
-    test.slow();
+    //test.slow();
     //await page.goto(process.env.DASHBOARD_URL);
     await page.waitForLoadState('networkidle');
     const myaccountPage = new MyAccountPage(page);
@@ -276,7 +276,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
   })
 
   test("Validate user should be able to navigate to Order Details Page in My account",async({page},testInfo)=>{ 
-    test.slow();
+    //test.slow();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -291,7 +291,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
            
   })
 
-  test("Validate user should be able to navigate to Stoneberry Credit Page in My account",async({page})=>{ 
+  test("Validate user should be able to navigate to Stoneberry Credit Page in My account",async({page},testInfo)=>{ 
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -304,7 +304,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
   })
 
   test("Validate user should be able to navigate to Make a Payment Page in My account",async({page},testInfo)=>{ 
-    test.slow();
+    //test.slow();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -317,7 +317,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
   })
 
   test("Validate user should be able to navigate to WishList Page in My account",async({page},testInfo)=>{ 
-    test.slow();
+    //test.slow();
     await page.waitForLoadState('networkidle');
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();

@@ -219,13 +219,13 @@ exports.MyAccountPage = class MyAccountPage{
     }
 
     async validateDefaultShippingAddress(addedAddress){
-        await this.page.getByText('Default Billing & Shipping Address:').waitFor({ state: 'visible' });
-        await expect(this.page.getByText('Default Billing & Shipping Address:'+addedAddress)).toBeVisible();
+        await this.page.getByText('Default Billing & Shipping Address').waitFor({ state: 'visible' });
+        await expect(this.page.getByText('Default Billing & Shipping Address'+addedAddress)).toBeVisible();
 
     }
 
     async validateRemovedDefaultShippingAddress(addedAddress){
-        await expect(this.page.getByText('Default Billing & Shipping Address:'+addedAddress)).toBeHidden();
+        await expect(this.page.getByText('Default Billing & Shipping Address'+addedAddress)).toBeHidden();
 
     }
 
