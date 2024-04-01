@@ -391,7 +391,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
            
   })
 
-  test("Validate user should be able to navigate to Make a Payment Page in My account",async({page})=>{ 
+  test("Validate user should be able to navigate to Make a Payment Page in My account",async({page},testInfo)=>{ 
     test.slow();
     // const homePage = new HomePage(page);
     // await homePage.clickOnHomePageSignIn();
@@ -407,7 +407,9 @@ test.describe("Mason Commerce Tool Site", ()=>{
     await myaccountPage.clickOnMyAccountLink();
     await myaccountPage.clickMyAccountMakeaPaymentLink();
     await myaccountPage.validateMakeaPaymentPage();
-    await page.screenshot({ path: './screenshots/MyAccountMakeaPaymentPage.png', fullPage: true });
+    const makeaPaymentPageScreenshot = await page.screenshot();
+    //await page.screenshot({ path: './screenshots/MyAccountMakeaPaymentPage.png', fullPage: true });
+    await testInfo.attach('screenshot', { body: makeaPaymentPageScreenshot, contentType: 'image/png' });
            
   })
 
