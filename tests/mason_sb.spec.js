@@ -410,7 +410,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
            
   })
 
-  test.only("Validate user should be able to navigate to WishList Page in My account",async({page})=>{ 
+  test("Validate user should be able to navigate to WishList Page in My account",async({page})=>{ 
     test.slow();
     // const homePage = new HomePage(page);
     // await homePage.clickOnHomePageSignIn();
