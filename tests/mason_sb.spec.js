@@ -433,8 +433,9 @@ test.describe("Mason Commerce Tool Site", ()=>{
     await myaccountPage.validateMyAccountDashboardNavigation();
     await myaccountPage.clickMyAccountWishListLink();
     await myaccountPage.validateWishListPage();
-    const wishlistScreenshot = await page.screenshot({ path: './screenshots/MyAccountWishListPage.png', fullPage: true });
-    //await testInfo.attach('screenshot', { body: wishlistScreenshot, contentType: 'image/png' });
+    const wishlistScreenshot = await page.screenshot();
+    //await page.screenshot({ path: './screenshots/MyAccountWishListPage.png', fullPage: true });
+    await testInfo.attach('screenshot', { body: wishlistScreenshot, contentType: 'image/png' });
            
   })
 
