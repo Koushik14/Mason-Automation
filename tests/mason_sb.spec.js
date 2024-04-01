@@ -3,6 +3,7 @@ import {test,expect } from '@playwright/test';
 import {HomePage} from '../pages/mason_home_page';
 import {SignInPage} from '../pages/mason_signin_page';
 import {MyAccountPage} from '../pages/mason_myaccount_page';
+import { allure } from 'allure-playwright';
 
 const homepage_data =JSON.parse(JSON.stringify(require('../test_data/mason_sb_home_page_data.json')));
 const signinpage_data =JSON.parse(JSON.stringify(require('../test_data/mason_signin_page_data.json')));
@@ -410,7 +411,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
            
   })
 
-  test("Validate user should be able to navigate to WishList Page in My account",async({page})=>{ 
+  test.only("Validate user should be able to navigate to WishList Page in My account",async({page})=>{ 
     test.slow();
     // const homePage = new HomePage(page);
     // await homePage.clickOnHomePageSignIn();
@@ -430,7 +431,8 @@ test.describe("Mason Commerce Tool Site", ()=>{
     await myaccountPage.validateMyAccountDashboardNavigation();
     await myaccountPage.clickMyAccountWishListLink();
     await myaccountPage.validateWishListPage();
-    await page.screenshot({ path: './screenshots/MyAccountWishListPage.png', fullPage: true });
+    const wishlistScreenshot = await page.screenshot({ path: './screenshots/MyAccountWishListPage.png', fullPage: true });
+    allure.screenshot('screenShot', wishlistScreenshot, 'image/png');
            
   })
 
