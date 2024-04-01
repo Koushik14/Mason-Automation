@@ -391,7 +391,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
            
   })
 
-  test("Validate user should be able to navigate to Make a Payment Page in My account",async({page},testInfo)=>{ 
+  test.only("Validate user should be able to navigate to Make a Payment Page in My account",async({page},testInfo)=>{ 
     test.slow();
     // const homePage = new HomePage(page);
     // await homePage.clickOnHomePageSignIn();
