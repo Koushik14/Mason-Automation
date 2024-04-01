@@ -47,7 +47,7 @@ export default defineConfig({
 
     // Collect trace when retrying the failed test.
     trace: 'on-first-retry',
-    //screenshot: 'on',
+    screenshot: 'only-on-failure',
     video: 'on',
     acceptDownloads: true,
     },

@@ -13,7 +13,7 @@ const editAddress = myaccountpage_data.myaccount_editaddress_firstname +" "+ mya
 
 test.describe("Mason Commerce Tool Site", ()=>{
 
-   test.beforeEach(async({page,isMobile})=>{
+   test.beforeEach(async({page,isMobile},testInfo)=>{
     test.slow();
     try{  
     await page.goto(process.env.WEB_URL);
@@ -41,7 +41,9 @@ test.describe("Mason Commerce Tool Site", ()=>{
       await homePage.clickOnHomePageSignIn();
       //await page.goto(process.env.DASHBOARD_URL);
     }
-    await page.screenshot({ path: './screenshots/MasonHomePage.png', fullPage: true });
+    const masonHomePageScreenshot = await page.screenshot();
+    await testInfo.attach('screenshot', { body: masonHomePageScreenshot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/MasonHomePage.png', fullPage: true });
   }catch (error) {
     // Handle the error here
     console.error("An error occurred in test.beforeEach:", error);
@@ -79,17 +81,8 @@ test.describe("Mason Commerce Tool Site", ()=>{
            
   })
 
-  test("Validate user should be able to login in to site and navigate to My account",async({page})=>{ 
+  test("Validate user should be able to login in to site and navigate to My account",async({page},testInfo)=>{ 
     test.slow();
-    // const homePage = new HomePage(page);
-    // await homePage.clickOnHomePageSignIn();
-    // const signinPage = new SignInPage(page);
-    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    // await signinPage.validateWelcomeSignInDialog();
-    // await signinPage.clickSignIn();
-    // await signinPage.validateSignInDialog();
-    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await page.screenshot({ path: './screenshots/MyAccountDrawer.png', fullPage: true });
@@ -101,21 +94,16 @@ test.describe("Mason Commerce Tool Site", ()=>{
     await myaccountPage.displayViewSavedCCLink();
     await myaccountPage.displayViewOrdersLink();
     await myaccountPage.displayViewAddressesLink();
-    await page.screenshot({ path: './screenshots/MyAccountDashboard.png', fullPage: true });
+    const myAccountDashboardScreenshot = await page.screenshot();
+    await testInfo.attach('screenshot', { body: myAccountDashboardScreenshot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/MyAccountDashboard.png', fullPage: true });
+    
+    
            
   })
 
-  test("Validate user should be able to add new address in My account",async({page})=>{ 
+  test("Validate user should be able to add new address in My account",async({page},testInfo)=>{ 
     test.slow();
-    // const homePage = new HomePage(page);
-    // await homePage.clickOnHomePageSignIn();
-    // const signinPage = new SignInPage(page);
-    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    // await signinPage.validateWelcomeSignInDialog();
-    // await signinPage.clickSignIn();
-    // await signinPage.validateSignInDialog();
-    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -136,63 +124,44 @@ test.describe("Mason Commerce Tool Site", ()=>{
     await page.waitForLoadState('networkidle');
     await myaccountPage.displaySavedAddressMessage(myaccountpage_data.myaccount_sb_savedaddress_message);
     await myaccountPage.validateDefaultShippingAddress(savedAddress);
-    await page.screenshot({ path: './screenshots/MyAccountSavedAddress.png', fullPage: true });
+    const myAccountSavedAddressScreenshot = await page.screenshot();
+    await testInfo.attach('screenshot', { body: myAccountSavedAddressScreenshot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/MyAccountSavedAddress.png', fullPage: true });
+    
+    
            
   })
 
-  test("Validate user should be redirected to the address page in My account",async({page})=>{ 
+  test("Validate user should be redirected to the address page in My account",async({page},testInfo)=>{ 
     test.slow();
-    // const homePage = new HomePage(page);
-    // await homePage.clickOnHomePageSignIn();
-    // const signinPage = new SignInPage(page);
-    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    // await signinPage.validateWelcomeSignInDialog();
-    // await signinPage.clickSignIn();
-    // await signinPage.validateSignInDialog();
-    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
     await myaccountPage.displayAddressPage();
     await myaccountPage.validateDefaultShippingAddress(savedAddress);
-    await page.screenshot({ path: './screenshots/MyAccountAddresspage.png', fullPage: true });
+    const myAccountAddressScreenshot = await page.screenshot();
+    await testInfo.attach('screenshot', { body: myAccountAddressScreenshot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/MyAccountAddresspage.png', fullPage: true });
            
   })
 
-  test("Validate user should be able to remove any existing address page in My account",async({page})=>{ 
+  test("Validate user should be able to remove any existing address page in My account",async({page},testInfo)=>{ 
     test.slow();
-    // const homePage = new HomePage(page);
-    // await homePage.clickOnHomePageSignIn();
-    // const signinPage = new SignInPage(page);
-    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    // await signinPage.validateWelcomeSignInDialog();
-    // await signinPage.clickSignIn();
-    // await signinPage.validateSignInDialog();
-    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
     await myaccountPage.displayAddressPage();
     var defaultAddress = await myaccountPage.getEditAddressNames() + await myaccountPage.getEditAddressline1();
     await myaccountPage.clickRemoveAddressButton();
-    await myaccountPage.validatedRemovedAddress(myaccountpage_data.myaccount_removedaddress_message,defaultAddress)
-    await page.screenshot({ path: './screenshots/MyAccountRemoveAddresspage.png', fullPage: true });
+    await myaccountPage.validatedRemovedAddress(myaccountpage_data.myaccount_removedaddress_message,defaultAddress);
+    const myAccountRemoveAddressScreenshot = await page.screenshot();
+    await testInfo.attach('screenshot', { body: myAccountRemoveAddressScreenshot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/MyAccountRemoveAddresspage.png', fullPage: true });
            
   })
 
-  test("Validate user should be able to edit any existing address page in My account",async({page})=>{ 
+  test("Validate user should be able to edit any existing address page in My account",async({page},testInfo)=>{ 
     test.slow();
-    // const homePage = new HomePage(page);
-    // await homePage.clickOnHomePageSignIn();
-    // const signinPage = new SignInPage(page);
-    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    // await signinPage.validateWelcomeSignInDialog();
-    // await signinPage.clickSignIn();
-    // await signinPage.validateSignInDialog();
-    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -207,21 +176,14 @@ test.describe("Mason Commerce Tool Site", ()=>{
     await myaccountPage.displayAddressPage();
     await myaccountPage.validateUpdatedAddressMessage(myaccountpage_data.myaccount_updatedAddressMessage);
     await myaccountPage.validateDefaultShippingAddress(editAddress);
-    await page.screenshot({ path: './screenshots/MyAccountEditAddresspage.png', fullPage: true });
+    const myAccountEditAddressScreenshot = await page.screenshot();
+    await testInfo.attach('screenshot', { body: myAccountEditAddressScreenshot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/MyAccountEditAddresspage.png', fullPage: true });
            
   })
 
-  test("Validate user should be able to set any existing address as default address in My account",async({page})=>{ 
+  test("Validate user should be able to set any existing address as default address in My account",async({page},testInfo)=>{ 
     test.slow();
-    // const homePage = new HomePage(page);
-    // await homePage.clickOnHomePageSignIn();
-    // const signinPage = new SignInPage(page);
-    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    // await signinPage.validateWelcomeSignInDialog();
-    // await signinPage.clickSignIn();
-    // await signinPage.validateSignInDialog();
-    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -232,41 +194,27 @@ test.describe("Mason Commerce Tool Site", ()=>{
     await myaccountPage.validateDefaultShippingAddressUpdateMessage(myaccountpage_data.myaccount_defaultaddress_message);
     var updatedDefaultAddress = await myaccountPage.getEditAddressNames() + await myaccountPage.getEditAddressline1();
     await myaccountPage.validateUpdatedDefaultAddress(updatedDefaultAddress,defaultAddress);
-    await page.screenshot({ path: './screenshots/MyAccountDefaultAddressUpdated.png', fullPage: true });
+    const myAccountDefaultAddressUpdatedScreenshot = await page.screenshot();
+    await testInfo.attach('screenshot', { body: myAccountDefaultAddressUpdatedScreenshot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/MyAccountDefaultAddressUpdated.png', fullPage: true });
            
   })
 
-  test("Validate user should be able to navigate to My Profile page in My account",async({page})=>{ 
+  test("Validate user should be able to navigate to My Profile page in My account",async({page},testInfo)=>{ 
     test.slow();
-    // const homePage = new HomePage(page);
-    // await homePage.clickOnHomePageSignIn();
-    // const signinPage = new SignInPage(page);
-    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    // await signinPage.validateWelcomeSignInDialog();
-    // await signinPage.clickSignIn();
-    // await signinPage.validateSignInDialog();
-    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
     await myaccountPage.clickMyAccountMyProfileLink();
     await myaccountPage.validateMyProfilePage();
-    await page.screenshot({ path: './screenshots/MyAccountMyProfilepage.png', fullPage: true });
+    const myAccountMyProfileScreenshot = await page.screenshot();
+    await testInfo.attach('screenshot', { body: myAccountMyProfileScreenshot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/MyAccountMyProfilepage.png', fullPage: true });
            
   })
 
-  test("Validate user should be able to update contact information in My Profile page in My account",async({page})=>{ 
+  test("Validate user should be able to update contact information in My Profile page in My account",async({page},testInfo)=>{ 
     test.slow();
-    // const homePage = new HomePage(page);
-    // await homePage.clickOnHomePageSignIn();
-    // const signinPage = new SignInPage(page);
-    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    // await signinPage.validateWelcomeSignInDialog();
-    // await signinPage.clickSignIn();
-    // await signinPage.validateSignInDialog();
-    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -276,89 +224,59 @@ test.describe("Mason Commerce Tool Site", ()=>{
     await myaccountPage.enterLastName(myaccountpage_data.myaccount_myprofile_updatedlastname);
     await myaccountPage.clickMyProfileSaveChangesButton();
     await myaccountPage.validateMyProfileUpdateMessage(myaccountpage_data.myaccount_myprofile_updatemessage);
-    await page.screenshot({ path: './screenshots/MyAccountMyProfileupdatepage.png', fullPage: true });
+    const myAccountMyProfileupdateScreenshot = await page.screenshot();
+    await testInfo.attach('screenshot', { body: myAccountMyProfileupdateScreenshot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/MyAccountMyProfileupdatepage.png', fullPage: true });
            
   })
 
-  test("Validate user should be able to navigate to Change password under My Profile section in My account",async({page})=>{ 
+  test("Validate user should be able to navigate to Change password under My Profile section in My account",async({page},testInfo)=>{ 
     test.slow();
-    // const homePage = new HomePage(page);
-    // await homePage.clickOnHomePageSignIn();
-    // const signinPage = new SignInPage(page);
-    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    // await signinPage.validateWelcomeSignInDialog();
-    // await signinPage.clickSignIn();
-    // await signinPage.validateSignInDialog();
-    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
     await myaccountPage.clickChangePasswordLink();
     await myaccountPage.validateChangePasswordSection();
-    await page.screenshot({ path: './screenshots/MyAccountMyProfileChangePassword.png', fullPage: true });
+    const myAccountMyProfileChangePasswordScreenshot = await page.screenshot();
+    await testInfo.attach('screenshot', { body: myAccountMyProfileChangePasswordScreenshot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/MyAccountMyProfileChangePassword.png', fullPage: true });
            
   })
 
-  test("Validate user should be able to navigate to Orders Page in My account",async({page})=>{ 
+  test("Validate user should be able to navigate to Orders Page in My account",async({page},testInfo)=>{ 
     test.slow();
-    // await page.goto(process.env.DASHBOARD_URL);
-    // await page.waitForLoadState('networkidle');
-    
-    // const signinPage = new SignInPage(page);
-    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    // await signinPage.validateWelcomeSignInDialog();
-    // await signinPage.clickSignIn();
-    // await signinPage.validateSignInDialog();
-    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
     await myaccountPage.clickMyAccountOrderLink();
     await page.waitForLoadState('networkidle');
     await myaccountPage.validatedOrderSection();
-    await page.screenshot({ path: './screenshots/MyAccountOrdersPage.png', fullPage: true });
+    const myAccountOrdersScreenshot = await page.screenshot();
+    await testInfo.attach('screenshot', { body: myAccountOrdersScreenshot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/MyAccountOrdersPage.png', fullPage: true });
            
   })
 
-  test.skip("Validate user should be able to navigate to Single Orders Look up Page in My account",async({page})=>{ 
+  test.skip("Validate user should be able to navigate to Single Orders Look up Page in My account",async({page},testInfo)=>{ 
     test.slow();
-    // const homePage = new HomePage(page);
-    // await homePage.clickOnHomePageSignIn();
-    // const signinPage = new SignInPage(page);
-    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    // await signinPage.validateWelcomeSignInDialog();
-    // await signinPage.clickSignIn();
-    // await signinPage.validateSignInDialog();
-    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    // await signinPage.clickSignIn();
-    await page.goto(process.env.DASHBOARD_URL);
+    //await page.goto(process.env.DASHBOARD_URL);
     await page.waitForLoadState('networkidle');
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
-    //await myaccountPage.clickOnMyAccountLink();
+    await myaccountPage.clickOnMyAccountLink();
     await myaccountPage.clickMyAccountOrderLink();
     await page.waitForLoadState('networkidle');
     await myaccountPage.validatedOrderSection();
     await myaccountPage.clickWithoutOrderButton();
     await myaccountPage.validateSingleOrderLookupSection();
-    await page.screenshot({ path: './screenshots/MyAccountSingleOrdersLookUp.png', fullPage: true });
+    const myAccountSingleOrdersLookUpscrshoot = await page.screenshot();
+    await testInfo.attach('screenshot', { body: myAccountSingleOrdersLookUpscrshoot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/MyAccountSingleOrdersLookUp.png', fullPage: true });
            
   })
 
-  test("Validate user should be able to navigate to Order Details Page in My account",async({page})=>{ 
+  test("Validate user should be able to navigate to Order Details Page in My account",async({page},testInfo)=>{ 
     test.slow();
-    
-    // const signinPage = new SignInPage(page);
-    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    // await signinPage.validateWelcomeSignInDialog();
-    // await signinPage.clickSignIn();
-    // await signinPage.validateSignInDialog();
-    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    // await signinPage.clickSignIn();
-    // await page.goto(process.env.DASHBOARD_URL);
-    // await page.waitForLoadState('networkidle');
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -367,65 +285,39 @@ test.describe("Mason Commerce Tool Site", ()=>{
     await myaccountPage.validatedOrderSection();
     await myaccountPage.clickViewOrderDetailsLink();
     await myaccountPage.validateOrderDetailsPage();
-    await page.screenshot({ path: './screenshots/MyAccountOrderDetailsPage.png', fullPage: true });
+    const myAccountOrderDetailsPagescrshoot = await page.screenshot();
+    await testInfo.attach('screenshot', { body: myAccountOrderDetailsPagescrshoot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/MyAccountOrderDetailsPage.png', fullPage: true });
            
   })
 
   test("Validate user should be able to navigate to Stoneberry Credit Page in My account",async({page})=>{ 
-    //test.slow();
-    // const homePage = new HomePage(page);
-    // await homePage.clickOnHomePageSignIn();
-    // const signinPage = new SignInPage(page);
-    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    // await signinPage.validateWelcomeSignInDialog();
-    // await signinPage.clickSignIn();
-    // await signinPage.validateSignInDialog();
-    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
     await myaccountPage.clickMyAccountCreditLink();
     await myaccountPage.validateStoneberryCreditPage();
-    await page.screenshot({ path: './screenshots/MyAccountStoneberryCreditPage.png', fullPage: true });
+    const myAccountStoneberryCreditPageScreenshot = await page.screenshot();
+    await testInfo.attach('screenshot', { body: myAccountStoneberryCreditPageScreenshot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/MyAccountStoneberryCreditPage.png', fullPage: true });
            
   })
 
   test.only("Validate user should be able to navigate to Make a Payment Page in My account",async({page},testInfo)=>{ 
     test.slow();
-    // const homePage = new HomePage(page);
-    // await homePage.clickOnHomePageSignIn();
-    // const signinPage = new SignInPage(page);
-    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    // await signinPage.validateWelcomeSignInDialog();
-    // await signinPage.clickSignIn();
-    // await signinPage.validateSignInDialog();
-    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
     await myaccountPage.clickMyAccountMakeaPaymentLink();
     await myaccountPage.validateMakeaPaymentPage();
     const makeaPaymentPageScreenshot = await page.screenshot();
-    //await page.screenshot({ path: './screenshots/MyAccountMakeaPaymentPage.png', fullPage: true });
     await testInfo.attach('screenshot', { body: makeaPaymentPageScreenshot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/MyAccountMakeaPaymentPage.png', fullPage: true });
            
   })
 
   test.only("Validate user should be able to navigate to WishList Page in My account",async({page},testInfo)=>{ 
     test.slow();
-    // const homePage = new HomePage(page);
-    // await homePage.clickOnHomePageSignIn();
-    // const signinPage = new SignInPage(page);
-    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    // await signinPage.validateWelcomeSignInDialog();
-    // await signinPage.clickSignIn();
-    // await page.waitForLoadState('networkidle');
-    // await signinPage.clickSignInImage();
-    // await signinPage.validateSignInDialog();
-    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    // await signinPage.clickSignIn();
     await page.waitForLoadState('networkidle');
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
@@ -434,8 +326,8 @@ test.describe("Mason Commerce Tool Site", ()=>{
     await myaccountPage.clickMyAccountWishListLink();
     await myaccountPage.validateWishListPage();
     const wishlistScreenshot = await page.screenshot();
-    //await page.screenshot({ path: './screenshots/MyAccountWishListPage.png', fullPage: true });
     await testInfo.attach('screenshot', { body: wishlistScreenshot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/MyAccountWishListPage.png', fullPage: true });
            
   })
 

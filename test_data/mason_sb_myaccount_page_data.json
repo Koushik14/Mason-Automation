@@ -4,8 +4,8 @@
     "myaccount_sb_defaultaddress_section" : "Default Billing & Shipping Address: Shannon Henneman 1303 Brookline Ave Eau Claire, WI 54703-1925(715) 555-5555",
     "myaccount_sb_nodefaultaddress_section" : "There are currently no addresses saved to your account.",
     "myaccount_sb_savedaddress_message" : "Address has been Added Successfully",
-    "myaccount_newaddress_firstname" : "Emiley",
-    "myaccount_newaddress_lastname" : "Johsnon",
+    "myaccount_newaddress_firstname" : "Shivam",
+    "myaccount_newaddress_lastname" : "Dubey",
     "myaccount_newaddress_addressline1" : "1838 Elmira Fall",
     "myaccount_newaddress_city" : "East Jairoside",
     "myaccount_newaddress_state" : "SC-South Carolina",
@@ -13,13 +13,13 @@
     "myaccount_newaddress_phonenumber" : "+13215821497",
     "myaccount_removedaddress_message" : "Your address was successfully removed.",
     "myaccount_defaultaddress_message" : "Your default billing and shipping address was successfully updated.",
-    "myaccount_editaddress_firstname" : "Summer",
-    "myaccount_editaddress_lastname" : "Salt",
+    "myaccount_editaddress_firstname" : "Rinku",
+    "myaccount_editaddress_lastname" : "Singh",
     "myaccount_editaddress_addressline1" : "1830 Elmira Fall",
     "myaccount_updatedAddressMessage" : "Address details have been updated successfully",
     "myaccount_myprofile_updatemessage" : "You have successfully updated your profile",
-    "myaccount_myprofile_updatedfirstname" : "Cathey",
-    "myaccount_myprofile_updatedlastname" : "Lender",
+    "myaccount_myprofile_updatedfirstname" : "Rishav",
+    "myaccount_myprofile_updatedlastname" : "Raj",
     "signedin_message" : "You have been successfully signed in to your account"
     
 }
