@@ -411,7 +411,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
            
   })
 
-  test.only("Validate user should be able to navigate to WishList Page in My account",async({page})=>{ 
+  test.only("Validate user should be able to navigate to WishList Page in My account",async({page},testInfo)=>{ 
     test.slow();
     // const homePage = new HomePage(page);
     // await homePage.clickOnHomePageSignIn();
@@ -432,7 +432,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
     await myaccountPage.clickMyAccountWishListLink();
     await myaccountPage.validateWishListPage();
     const wishlistScreenshot = await page.screenshot({ path: './screenshots/MyAccountWishListPage.png', fullPage: true });
-    allure.screenshot('screenShot', wishlistScreenshot, 'image/png');
+    await testInfo.attach('screenshot', { body: wishlistScreenshot, contentType: 'image/png' });
            
   })
 
