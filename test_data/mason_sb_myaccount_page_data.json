@@ -13,13 +13,13 @@
     "myaccount_newaddress_phonenumber" : "+13215821497",
     "myaccount_removedaddress_message" : "Your address was successfully removed.",
     "myaccount_defaultaddress_message" : "Your default billing and shipping address was successfully updated.",
-    "myaccount_editaddress_firstname" : "Rinku",
-    "myaccount_editaddress_lastname" : "Singh",
+    "myaccount_editaddress_firstname" : "Markam",
+    "myaccount_editaddress_lastname" : "Abu",
     "myaccount_editaddress_addressline1" : "1830 Elmira Fall",
     "myaccount_updatedAddressMessage" : "Address details have been updated successfully",
     "myaccount_myprofile_updatemessage" : "You have successfully updated your profile",
-    "myaccount_myprofile_updatedfirstname" : "Rishavs",
-    "myaccount_myprofile_updatedlastname" : "Raj",
+    "myaccount_myprofile_updatedfirstname" : "Akshit",
+    "myaccount_myprofile_updatedlastname" : "Kakkar",
     "signedin_message" : "You have been successfully signed in to your account"
     
 }
