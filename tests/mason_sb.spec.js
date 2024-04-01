@@ -434,7 +434,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
     await myaccountPage.clickMyAccountWishListLink();
     await myaccountPage.validateWishListPage();
     const wishlistScreenshot = await page.screenshot({ path: './screenshots/MyAccountWishListPage.png', fullPage: true });
-    await testInfo.attach('screenshot', { body: wishlistScreenshot, contentType: 'image/png' });
+    //await testInfo.attach('screenshot', { body: wishlistScreenshot, contentType: 'image/png' });
            
   })
 
