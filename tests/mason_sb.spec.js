@@ -303,7 +303,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
            
   })
 
-  test.only("Validate user should be able to navigate to Make a Payment Page in My account",async({page},testInfo)=>{ 
+  test("Validate user should be able to navigate to Make a Payment Page in My account",async({page},testInfo)=>{ 
     test.slow();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
@@ -316,7 +316,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
            
   })
 
-  test.only("Validate user should be able to navigate to WishList Page in My account",async({page},testInfo)=>{ 
+  test("Validate user should be able to navigate to WishList Page in My account",async({page},testInfo)=>{ 
     test.slow();
     await page.waitForLoadState('networkidle');
     const myaccountPage = new MyAccountPage(page);
