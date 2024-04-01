@@ -213,7 +213,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
            
   })
 
-  test("Validate user should be able to update contact information in My Profile page in My account",async({page},testInfo)=>{ 
+  test.only("Validate user should be able to update contact information in My Profile page in My account",async({page},testInfo)=>{ 
     //test.slow();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();

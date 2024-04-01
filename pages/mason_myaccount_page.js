@@ -296,7 +296,13 @@ exports.MyAccountPage = class MyAccountPage{
     }
 
     async validateMyProfileUpdateMessage(profileUpdateMessage){
-        await expect(this.page.locator('body')).toContainText(profileUpdateMessage);
+        try {
+            await expect(this.page.locator('body')).toContainText(profileUpdateMessage);
+            
+        } catch (error) {
+            throw new Error('Failed to validate profile update message:'+ error);
+        }
+        
     }
 
     async clickMyProfileSaveChangesButton(){
