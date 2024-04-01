@@ -37,9 +37,9 @@ export default defineConfig({
     ],
   ],
   
-  // expect: {
-  //   timeout: 10 * 1000,
-  // },
+  expect: {
+    timeout: 30 * 1000,
+  },
 
   use: {
     // Base URL to use in actions like `await page.goto('/')`.
