@@ -1,3 +1,5 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Mon Apr 01 08:06:19 UTC 2024","Mon Apr 01 08:06:36 UTC 2024","16691","Mason Commerce Tool Site - Chrome Browser","mason_sb.spec.js","Mason Commerce Tool Site","","","Validate user should be able to navigate to WishList Page in My account",""
-"passed","Mon Apr 01 08:06:01 UTC 2024","Mon Apr 01 08:06:19 UTC 2024","17678","Mason Commerce Tool Site - Chrome Browser","mason_sb.spec.js","Mason Commerce Tool Site","","","Validate user should be able to navigate to Make a Payment Page in My account",""
+"broken","Mon Apr 01 08:11:26 UTC 2024","Mon Apr 01 08:16:14 UTC 2024","288289","Mason Commerce Tool Site - Chrome Browser","mason_sb.spec.js","Mason Commerce Tool Site","","","Validate user should be able to add new address in My account",""
+"skipped","Mon Apr 01 08:11:08 UTC 2024","Mon Apr 01 08:11:08 UTC 2024","1","Mason Commerce Tool Site - Chrome Browser","mason_sb.spec.js","Mason Commerce Tool Site","","","Display the Home Page",""
+"skipped","Mon Apr 01 08:11:08 UTC 2024","Mon Apr 01 08:11:08 UTC 2024","0","Mason Commerce Tool Site - Chrome Browser","mason_sb.spec.js","Mason Commerce Tool Site","","","Validate user should be able to login in to site",""
+"passed","Mon Apr 01 08:11:08 UTC 2024","Mon Apr 01 08:11:26 UTC 2024","17888","Mason Commerce Tool Site - Chrome Browser","mason_sb.spec.js","Mason Commerce Tool Site","","","Validate user should be able to login in to site and navigate to My account",""
