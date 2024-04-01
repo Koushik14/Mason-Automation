@@ -6,7 +6,8 @@ exports.HomePage = class HomePage{
         this.page=page;
         this.homepage_searchbarplaceholder=page.getByPlaceholder(homepage_locator.homepage_searchbarplaceholder);
         this.homepage_searchbutton=page.getByLabel(homepage_locator.homepage_searchbutton, { exact: true });
-        this.homepage_signin=page.getByRole('button', { name: homepage_locator.homepage_signin });  
+        //this.homepage_signin=page.getByRole('button', { name: homepage_locator.homepage_signin,exact:true });
+        this.homepage_signin=page.locator(homepage_locator.homepage_signin);   
         this.homepage_cart=page.getByRole('button', { name: homepage_locator.homepage_cart }); 
         this.homepage_category=page.getByRole('button', { name: homepage_locator.homepage_category }); 
              

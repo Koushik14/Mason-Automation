@@ -57,16 +57,26 @@ export default defineConfig({
       name: 'Mason Commerce Tool Site - Chrome Browser',
       use: {
         ...devices['Desktop Chrome'],
+        viewport: { width: 1920, height: 1080 },
         // launchOptions: {
         // args: ['--start-maximized']}
       },
     },
     // {
+    //   name: 'Mason Commerce Tool Site - Microsoft Edge',
+    //   use: { ...devices['Desktop Edge'], channel: 'msedge' }, // or 'msedge-dev'
+    // },
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
+    // {
     //   name: 'Mobile Chrome',
-    //   use: {
-    //     ...devices['iPhone 13'],browserName: 'chromium',
-
-    //   },
+    //   use: {...devices['iPhone 14 Pro Max'],browserName: 'chromium'},
     // },
     // {
     //   name: "chromium@Samsung Galaxy S23 Ultra:@browserstack-mobile",

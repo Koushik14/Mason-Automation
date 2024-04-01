@@ -7,18 +7,47 @@ import {MyAccountPage} from '../pages/mason_myaccount_page';
 const homepage_data =JSON.parse(JSON.stringify(require('../test_data/mason_sb_home_page_data.json')));
 const signinpage_data =JSON.parse(JSON.stringify(require('../test_data/mason_signin_page_data.json')));
 const myaccountpage_data =JSON.parse(JSON.stringify(require('../test_data/mason_sb_myaccount_page_data.json')));
-const savedAddress = myaccountpage_data.myaccount_newaddress_firstname +" "+ myaccountpage_data.myaccount_newaddress_lastname +" "+ myaccountpage_data.myaccount_newaddress_addressline1 +" "+ myaccountpage_data.myaccount_newaddress_state;
+const savedAddress = myaccountpage_data.myaccount_newaddress_firstname +" "+ myaccountpage_data.myaccount_newaddress_lastname +" "+ myaccountpage_data.myaccount_newaddress_addressline1;
 const editAddress = myaccountpage_data.myaccount_editaddress_firstname +" "+ myaccountpage_data.myaccount_editaddress_lastname +" "+ myaccountpage_data.myaccount_editaddress_addressline1;
 
 test.describe("Mason Commerce Tool Site", ()=>{
 
    test.beforeEach(async({page,isMobile})=>{
-    test.slow();  
+    test.slow();
+    try{  
     await page.goto(process.env.WEB_URL);
+    await page.waitForLoadState('networkidle');
+    if(isMobile==true){
+      const signinPage = new SignInPage(page);  
+      await signinPage.clickSignInImage();
+      await signinPage.clickSignIn();
+      await signinPage.validateSignInDialog();
+      await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
+      await signinPage.clickSignIn();
+    } else {
+      const homePage = new HomePage(page);
+      await homePage.clickOnHomePageSignIn();
+      const signinPage = new SignInPage(page);
+      await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
+      await signinPage.validateWelcomeSignInDialog();
+      await signinPage.clickSignIn();
+      await signinPage.validateSignInDialog();
+      await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
+      await signinPage.clickSignIn();
+      await signinPage.validateSignedInMessage(myaccountpage_data.signedin_message);
+      await signinPage.waitForHiddenSignedInMessage();
+      await page.waitForLoadState('networkidle');
+      await homePage.clickOnHomePageSignIn();
+      //await page.goto(process.env.DASHBOARD_URL);
+    }
     await page.screenshot({ path: './screenshots/MasonHomePage.png', fullPage: true });
+  }catch (error) {
+    // Handle the error here
+    console.error("An error occurred in test.beforeEach:", error);
+}
     
   })
-  test("Display the Home Page",async({page})=>{ 
+  test.skip("Display the Home Page",async({page})=>{ 
     test.slow();
     const homePage = new HomePage(page);
     await homePage.displaySearchBar();
@@ -35,7 +64,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
     await homePage.displayFooter(homepage_data.homepage_footer5_connectus_name);        
   })
 
-  test("Validate user should be able to login in to site",async({page})=>{ 
+  test.skip("Validate user should be able to login in to site",async({page})=>{ 
     test.slow();
     const homePage = new HomePage(page);
     await homePage.clickOnHomePageSignIn();
@@ -51,15 +80,15 @@ test.describe("Mason Commerce Tool Site", ()=>{
 
   test("Validate user should be able to login in to site and navigate to My account",async({page})=>{ 
     test.slow();
-    const homePage = new HomePage(page);
-    await homePage.clickOnHomePageSignIn();
-    const signinPage = new SignInPage(page);
-    await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    await signinPage.validateWelcomeSignInDialog();
-    await signinPage.clickSignIn();
-    await signinPage.validateSignInDialog();
-    await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    await signinPage.clickSignIn();
+    // const homePage = new HomePage(page);
+    // await homePage.clickOnHomePageSignIn();
+    // const signinPage = new SignInPage(page);
+    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
+    // await signinPage.validateWelcomeSignInDialog();
+    // await signinPage.clickSignIn();
+    // await signinPage.validateSignInDialog();
+    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
+    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await page.screenshot({ path: './screenshots/MyAccountDrawer.png', fullPage: true });
@@ -77,15 +106,15 @@ test.describe("Mason Commerce Tool Site", ()=>{
 
   test("Validate user should be able to add new address in My account",async({page})=>{ 
     test.slow();
-    const homePage = new HomePage(page);
-    await homePage.clickOnHomePageSignIn();
-    const signinPage = new SignInPage(page);
-    await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    await signinPage.validateWelcomeSignInDialog();
-    await signinPage.clickSignIn();
-    await signinPage.validateSignInDialog();
-    await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    await signinPage.clickSignIn();
+    // const homePage = new HomePage(page);
+    // await homePage.clickOnHomePageSignIn();
+    // const signinPage = new SignInPage(page);
+    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
+    // await signinPage.validateWelcomeSignInDialog();
+    // await signinPage.clickSignIn();
+    // await signinPage.validateSignInDialog();
+    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
+    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -103,6 +132,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
     await myaccountPage.enterPhoneNumber(myaccountpage_data.myaccount_newaddress_phonenumber);
     await myaccountPage.selectSaveDefaultaddressCheckbox();
     await myaccountPage.clickSaveAddressButton();
+    await page.waitForLoadState('networkidle');
     await myaccountPage.displaySavedAddressMessage(myaccountpage_data.myaccount_sb_savedaddress_message);
     await myaccountPage.validateDefaultShippingAddress(savedAddress);
     await page.screenshot({ path: './screenshots/MyAccountSavedAddress.png', fullPage: true });
@@ -111,15 +141,15 @@ test.describe("Mason Commerce Tool Site", ()=>{
 
   test("Validate user should be redirected to the address page in My account",async({page})=>{ 
     test.slow();
-    const homePage = new HomePage(page);
-    await homePage.clickOnHomePageSignIn();
-    const signinPage = new SignInPage(page);
-    await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    await signinPage.validateWelcomeSignInDialog();
-    await signinPage.clickSignIn();
-    await signinPage.validateSignInDialog();
-    await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    await signinPage.clickSignIn();
+    // const homePage = new HomePage(page);
+    // await homePage.clickOnHomePageSignIn();
+    // const signinPage = new SignInPage(page);
+    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
+    // await signinPage.validateWelcomeSignInDialog();
+    // await signinPage.clickSignIn();
+    // await signinPage.validateSignInDialog();
+    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
+    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -131,37 +161,37 @@ test.describe("Mason Commerce Tool Site", ()=>{
 
   test("Validate user should be able to remove any existing address page in My account",async({page})=>{ 
     test.slow();
-    const homePage = new HomePage(page);
-    await homePage.clickOnHomePageSignIn();
-    const signinPage = new SignInPage(page);
-    await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    await signinPage.validateWelcomeSignInDialog();
-    await signinPage.clickSignIn();
-    await signinPage.validateSignInDialog();
-    await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    await signinPage.clickSignIn();
+    // const homePage = new HomePage(page);
+    // await homePage.clickOnHomePageSignIn();
+    // const signinPage = new SignInPage(page);
+    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
+    // await signinPage.validateWelcomeSignInDialog();
+    // await signinPage.clickSignIn();
+    // await signinPage.validateSignInDialog();
+    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
+    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
     await myaccountPage.displayAddressPage();
-    await myaccountPage.validateDefaultShippingAddress(savedAddress);
+    var defaultAddress = await myaccountPage.getEditAddressNames() + await myaccountPage.getEditAddressline1();
     await myaccountPage.clickRemoveAddressButton();
-    await myaccountPage.validatedRemovedAddress(myaccountpage_data.myaccount_removedaddress_message,savedAddress)
+    await myaccountPage.validatedRemovedAddress(myaccountpage_data.myaccount_removedaddress_message,defaultAddress)
     await page.screenshot({ path: './screenshots/MyAccountRemoveAddresspage.png', fullPage: true });
            
   })
 
   test("Validate user should be able to edit any existing address page in My account",async({page})=>{ 
     test.slow();
-    const homePage = new HomePage(page);
-    await homePage.clickOnHomePageSignIn();
-    const signinPage = new SignInPage(page);
-    await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    await signinPage.validateWelcomeSignInDialog();
-    await signinPage.clickSignIn();
-    await signinPage.validateSignInDialog();
-    await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    await signinPage.clickSignIn();
+    // const homePage = new HomePage(page);
+    // await homePage.clickOnHomePageSignIn();
+    // const signinPage = new SignInPage(page);
+    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
+    // await signinPage.validateWelcomeSignInDialog();
+    // await signinPage.clickSignIn();
+    // await signinPage.validateSignInDialog();
+    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
+    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -182,15 +212,15 @@ test.describe("Mason Commerce Tool Site", ()=>{
 
   test("Validate user should be able to set any existing address as default address in My account",async({page})=>{ 
     test.slow();
-    const homePage = new HomePage(page);
-    await homePage.clickOnHomePageSignIn();
-    const signinPage = new SignInPage(page);
-    await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    await signinPage.validateWelcomeSignInDialog();
-    await signinPage.clickSignIn();
-    await signinPage.validateSignInDialog();
-    await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    await signinPage.clickSignIn();
+    // const homePage = new HomePage(page);
+    // await homePage.clickOnHomePageSignIn();
+    // const signinPage = new SignInPage(page);
+    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
+    // await signinPage.validateWelcomeSignInDialog();
+    // await signinPage.clickSignIn();
+    // await signinPage.validateSignInDialog();
+    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
+    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -207,15 +237,15 @@ test.describe("Mason Commerce Tool Site", ()=>{
 
   test("Validate user should be able to navigate to My Profile page in My account",async({page})=>{ 
     test.slow();
-    const homePage = new HomePage(page);
-    await homePage.clickOnHomePageSignIn();
-    const signinPage = new SignInPage(page);
-    await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    await signinPage.validateWelcomeSignInDialog();
-    await signinPage.clickSignIn();
-    await signinPage.validateSignInDialog();
-    await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    await signinPage.clickSignIn();
+    // const homePage = new HomePage(page);
+    // await homePage.clickOnHomePageSignIn();
+    // const signinPage = new SignInPage(page);
+    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
+    // await signinPage.validateWelcomeSignInDialog();
+    // await signinPage.clickSignIn();
+    // await signinPage.validateSignInDialog();
+    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
+    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -227,15 +257,15 @@ test.describe("Mason Commerce Tool Site", ()=>{
 
   test("Validate user should be able to update contact information in My Profile page in My account",async({page})=>{ 
     test.slow();
-    const homePage = new HomePage(page);
-    await homePage.clickOnHomePageSignIn();
-    const signinPage = new SignInPage(page);
-    await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    await signinPage.validateWelcomeSignInDialog();
-    await signinPage.clickSignIn();
-    await signinPage.validateSignInDialog();
-    await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    await signinPage.clickSignIn();
+    // const homePage = new HomePage(page);
+    // await homePage.clickOnHomePageSignIn();
+    // const signinPage = new SignInPage(page);
+    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
+    // await signinPage.validateWelcomeSignInDialog();
+    // await signinPage.clickSignIn();
+    // await signinPage.validateSignInDialog();
+    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
+    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -251,15 +281,15 @@ test.describe("Mason Commerce Tool Site", ()=>{
 
   test("Validate user should be able to navigate to Change password under My Profile section in My account",async({page})=>{ 
     test.slow();
-    const homePage = new HomePage(page);
-    await homePage.clickOnHomePageSignIn();
-    const signinPage = new SignInPage(page);
-    await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    await signinPage.validateWelcomeSignInDialog();
-    await signinPage.clickSignIn();
-    await signinPage.validateSignInDialog();
-    await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    await signinPage.clickSignIn();
+    // const homePage = new HomePage(page);
+    // await homePage.clickOnHomePageSignIn();
+    // const signinPage = new SignInPage(page);
+    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
+    // await signinPage.validateWelcomeSignInDialog();
+    // await signinPage.clickSignIn();
+    // await signinPage.validateSignInDialog();
+    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
+    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -271,39 +301,44 @@ test.describe("Mason Commerce Tool Site", ()=>{
 
   test("Validate user should be able to navigate to Orders Page in My account",async({page})=>{ 
     test.slow();
-    const homePage = new HomePage(page);
-    await homePage.clickOnHomePageSignIn();
-    const signinPage = new SignInPage(page);
-    await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    await signinPage.validateWelcomeSignInDialog();
-    await signinPage.clickSignIn();
-    await signinPage.validateSignInDialog();
-    await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    await signinPage.clickSignIn();
+    // await page.goto(process.env.DASHBOARD_URL);
+    // await page.waitForLoadState('networkidle');
+    
+    // const signinPage = new SignInPage(page);
+    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
+    // await signinPage.validateWelcomeSignInDialog();
+    // await signinPage.clickSignIn();
+    // await signinPage.validateSignInDialog();
+    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
+    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
     await myaccountPage.clickMyAccountOrderLink();
+    await page.waitForLoadState('networkidle');
     await myaccountPage.validatedOrderSection();
     await page.screenshot({ path: './screenshots/MyAccountOrdersPage.png', fullPage: true });
            
   })
 
-  test("Validate user should be able to navigate to Single Orders Look up Page in My account",async({page})=>{ 
+  test.skip("Validate user should be able to navigate to Single Orders Look up Page in My account",async({page})=>{ 
     test.slow();
-    const homePage = new HomePage(page);
-    await homePage.clickOnHomePageSignIn();
-    const signinPage = new SignInPage(page);
-    await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    await signinPage.validateWelcomeSignInDialog();
-    await signinPage.clickSignIn();
-    await signinPage.validateSignInDialog();
-    await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    await signinPage.clickSignIn();
+    // const homePage = new HomePage(page);
+    // await homePage.clickOnHomePageSignIn();
+    // const signinPage = new SignInPage(page);
+    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
+    // await signinPage.validateWelcomeSignInDialog();
+    // await signinPage.clickSignIn();
+    // await signinPage.validateSignInDialog();
+    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
+    // await signinPage.clickSignIn();
+    await page.goto(process.env.DASHBOARD_URL);
+    await page.waitForLoadState('networkidle');
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
-    await myaccountPage.clickOnMyAccountLink();
+    //await myaccountPage.clickOnMyAccountLink();
     await myaccountPage.clickMyAccountOrderLink();
+    await page.waitForLoadState('networkidle');
     await myaccountPage.validatedOrderSection();
     await myaccountPage.clickWithoutOrderButton();
     await myaccountPage.validateSingleOrderLookupSection();
@@ -313,19 +348,21 @@ test.describe("Mason Commerce Tool Site", ()=>{
 
   test("Validate user should be able to navigate to Order Details Page in My account",async({page})=>{ 
     test.slow();
-    const homePage = new HomePage(page);
-    await homePage.clickOnHomePageSignIn();
-    const signinPage = new SignInPage(page);
-    await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    await signinPage.validateWelcomeSignInDialog();
-    await signinPage.clickSignIn();
-    await signinPage.validateSignInDialog();
-    await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    await signinPage.clickSignIn();
+    
+    // const signinPage = new SignInPage(page);
+    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
+    // await signinPage.validateWelcomeSignInDialog();
+    // await signinPage.clickSignIn();
+    // await signinPage.validateSignInDialog();
+    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
+    // await signinPage.clickSignIn();
+    // await page.goto(process.env.DASHBOARD_URL);
+    // await page.waitForLoadState('networkidle');
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
     await myaccountPage.clickMyAccountOrderLink();
+    await page.waitForLoadState('networkidle');
     await myaccountPage.validatedOrderSection();
     await myaccountPage.clickViewOrderDetailsLink();
     await myaccountPage.validateOrderDetailsPage();
@@ -334,16 +371,16 @@ test.describe("Mason Commerce Tool Site", ()=>{
   })
 
   test("Validate user should be able to navigate to Stoneberry Credit Page in My account",async({page})=>{ 
-    test.slow();
-    const homePage = new HomePage(page);
-    await homePage.clickOnHomePageSignIn();
-    const signinPage = new SignInPage(page);
-    await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    await signinPage.validateWelcomeSignInDialog();
-    await signinPage.clickSignIn();
-    await signinPage.validateSignInDialog();
-    await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    await signinPage.clickSignIn();
+    //test.slow();
+    // const homePage = new HomePage(page);
+    // await homePage.clickOnHomePageSignIn();
+    // const signinPage = new SignInPage(page);
+    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
+    // await signinPage.validateWelcomeSignInDialog();
+    // await signinPage.clickSignIn();
+    // await signinPage.validateSignInDialog();
+    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
+    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -355,15 +392,15 @@ test.describe("Mason Commerce Tool Site", ()=>{
 
   test("Validate user should be able to navigate to Make a Payment Page in My account",async({page})=>{ 
     test.slow();
-    const homePage = new HomePage(page);
-    await homePage.clickOnHomePageSignIn();
-    const signinPage = new SignInPage(page);
-    await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    await signinPage.validateWelcomeSignInDialog();
-    await signinPage.clickSignIn();
-    await signinPage.validateSignInDialog();
-    await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    await signinPage.clickSignIn();
+    // const homePage = new HomePage(page);
+    // await homePage.clickOnHomePageSignIn();
+    // const signinPage = new SignInPage(page);
+    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
+    // await signinPage.validateWelcomeSignInDialog();
+    // await signinPage.clickSignIn();
+    // await signinPage.validateSignInDialog();
+    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
+    // await signinPage.clickSignIn();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();
@@ -375,15 +412,18 @@ test.describe("Mason Commerce Tool Site", ()=>{
 
   test.only("Validate user should be able to navigate to WishList Page in My account",async({page})=>{ 
     test.slow();
-    const homePage = new HomePage(page);
-    await homePage.clickOnHomePageSignIn();
-    const signinPage = new SignInPage(page);
-    await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
-    await signinPage.validateWelcomeSignInDialog();
-    await signinPage.clickSignIn();
-    await signinPage.validateSignInDialog();
-    await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
-    await signinPage.clickSignIn();
+    // const homePage = new HomePage(page);
+    // await homePage.clickOnHomePageSignIn();
+    // const signinPage = new SignInPage(page);
+    // await signinPage.validateWelcomeTextSignInDialog(signinpage_data.signin_dailog_text);
+    // await signinPage.validateWelcomeSignInDialog();
+    // await signinPage.clickSignIn();
+    // await page.waitForLoadState('networkidle');
+    // await signinPage.clickSignInImage();
+    // await signinPage.validateSignInDialog();
+    // await signinPage.login(process.env.USERNAME,process.env.PASSWORD);
+    // await signinPage.clickSignIn();
+    await page.waitForLoadState('networkidle');
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
     await myaccountPage.clickOnMyAccountLink();

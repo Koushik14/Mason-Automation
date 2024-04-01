@@ -1,7 +1,7 @@
 {
     "homepage_searchbarplaceholder" : "What can we help you find",
     "homepage_searchbutton" : "Search",
-    "homepage_signin" : "My Account Sign In",
+    "homepage_signin" : "(//img[@class='inline min-w-[30px]'])[1]",
     "homepage_cart" :"Mini Cart Cart",
     "homepage_category" : "Departments"
 

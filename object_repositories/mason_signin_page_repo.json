@@ -4,5 +4,6 @@
     "myaccount_img_icon_name" : "My Account",
     "signin_page_text" : "If you already have an",
     "signin_emailaddress_textbox" : "//input[@name='email']",
-    "signin_password_textbox" : "//input[@name='password']"
+    "signin_password_textbox" : "//input[@name='password']",
+    "signin_img_button" : "//img[@alt='My Account']"
 }
