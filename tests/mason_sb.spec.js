@@ -50,9 +50,10 @@ test.describe("Mason Commerce Tool Site", ()=>{
 }
     
   })
-  test.skip("Display the Home Page",async({page})=>{ 
+  test("Display the Home Page",async({page},testInfo)=>{ 
     test.slow();
     const homePage = new HomePage(page);
+    await homePage.closeSignedInDrawer();
     await homePage.displaySearchBar();
     await homePage.displaySignIn();
     await homePage.displayMiniCartIcon();
@@ -64,11 +65,13 @@ test.describe("Mason Commerce Tool Site", ()=>{
     await homePage.displayFooter(homepage_data.homepage_footer2_name);
     await homePage.displayFooter(homepage_data.homepage_footer3_name);
     await homePage.displayFooter(homepage_data.homepage_footer4_name);
-    await homePage.displayFooter(homepage_data.homepage_footer5_connectus_name);        
+    await homePage.displayFooter(homepage_data.homepage_footer5_connectus_name);
+    const homePageScreenshot = await page.screenshot();
+    await testInfo.attach('screenshot', { body: homePageScreenshot, contentType: 'image/png' });        
   })
 
   test.skip("Validate user should be able to login in to site",async({page})=>{ 
-    test.slow();
+    //test.slow();
     const homePage = new HomePage(page);
     await homePage.clickOnHomePageSignIn();
     const signinPage = new SignInPage(page);
@@ -328,6 +331,66 @@ test.describe("Mason Commerce Tool Site", ()=>{
     const wishlistScreenshot = await page.screenshot();
     await testInfo.attach('screenshot', { body: wishlistScreenshot, contentType: 'image/png' });
     //await page.screenshot({ path: './screenshots/MyAccountWishListPage.png', fullPage: true });
+           
+  })
+
+  test("Validate user should be able to navigate to credit card page in My account",async({page},testInfo)=>{ 
+    //test.slow();
+    await page.waitForLoadState('networkidle');
+    const myaccountPage = new MyAccountPage(page);
+    await myaccountPage.displayMyAccountLeftNavigationLink();
+    await myaccountPage.clickOnMyAccountLink();
+    await myaccountPage.validateMyAccountDashboardNavigation();
+    await myaccountPage.clickMyAccountSavedCCLink();
+    await myaccountPage.validateSaveCreditCardPage();
+    await myaccountPage.validateExistingCCDetails();
+    const savedccScreenshot = await page.screenshot();
+    await testInfo.attach('screenshot', { body: savedccScreenshot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/SavedCCPage.png', fullPage: true });
+           
+  })
+
+  test("Validate user should be able to see the add new credit card option in saved credit card section on My account",async({page},testInfo)=>{ 
+    //test.slow();
+    await page.waitForLoadState('networkidle');
+    const myaccountPage = new MyAccountPage(page);
+    await myaccountPage.displayMyAccountLeftNavigationLink();
+    await myaccountPage.clickOnMyAccountLink();
+    await myaccountPage.validateMyAccountDashboardNavigation();
+    await myaccountPage.clickMyAccountSavedCCLink();
+    await myaccountPage.validateSaveCreditCardPage();
+    await myaccountPage.validateExistingCCDetails();
+    await myaccountPage.clickAddNewCC();
+    await myaccountPage.validateNewCCSection();
+    const addnewccScreenshot = await page.screenshot();
+    await testInfo.attach('screenshot', { body: addnewccScreenshot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/SavedCCPage.png', fullPage: true });
+           
+  })
+
+  test("Validate user should be able to see the add new credit card in saved credit card section on My account",async({page},testInfo)=>{ 
+    //test.slow();
+    await page.waitForLoadState('networkidle');
+    const myaccountPage = new MyAccountPage(page);
+    await myaccountPage.displayMyAccountLeftNavigationLink();
+    await myaccountPage.clickOnMyAccountLink();
+    await myaccountPage.validateMyAccountDashboardNavigation();
+    await myaccountPage.clickMyAccountSavedCCLink();
+    await myaccountPage.validateSaveCreditCardPage();
+    await myaccountPage.validateExistingCCDetails();
+    await myaccountPage.clickAddNewCC();
+    await myaccountPage.validateNewCCSection();
+    await myaccountPage.enterCCNumber(myaccountpage_data.myaccount_newcc_cardnumber);
+    await myaccountPage.enterCCExpDate(myaccountpage_data.myaccount_newcc_cardexpdate);
+    await myaccountPage.enterCCSecurityCode(myaccountpage_data.myaccount_newcc_cardseccode);
+    await myaccountPage.clickDefaultCCCheckbox();
+    await myaccountPage.clickSaveCardButton();
+    await myaccountPage.validateAddNewCardMessage(myaccountpage_data.myaccount_savedcc_newcardadded_message);
+    const lastFourDigitsCardNumber = myaccountpage_data.myaccount_newcc_cardnumber.slice(-4);
+    await myaccountPage.validateAddNewCard('***'+lastFourDigitsCardNumber,myaccountpage_data.myaccount_newcc_cardexpdate);
+    const addednewcardScreenshot = await page.screenshot();
+    await testInfo.attach('screenshot', { body: addednewcardScreenshot, contentType: 'image/png' });
+    //await page.screenshot({ path: './screenshots/SavedCCPage.png', fullPage: true });
            
   })
 

@@ -57,6 +57,14 @@ exports.MyAccountPage = class MyAccountPage{
         this.myaccount_singleorder_ordernumbertextbox=page.getByLabel(myaccountpage_locator.myaccount_singleorder_ordernumbertextbox);
         this.myaccount_singleorder_billingzipcodetextbox=page.getByLabel(myaccountpage_locator.myaccount_singleorder_billingzipcodetextbox);
         this.myaccount_singleorder_viewordersbutton=page.getByRole('button', { name: myaccountpage_locator.myaccount_singleorder_viewordersbutton });
+        this.myaccount_savedcc_addccdebitcard_button=page.getByRole('heading', { name: myaccountpage_locator.myaccount_savedcc_addccdebitcard_button }).getByRole('button');
+        this.myaccount_cc_savecard_number=page.locator(myaccountpage_locator.myaccount_cc_savecard_number);
+        this.myaccount_cc_savecard_expdate=page.locator(myaccountpage_locator.myaccount_cc_savecard_expdate).first();
+        this.myaccount_cc_cardnumber_textbox=page.getByLabel(myaccountpage_locator.myaccount_cc_cardnumber_textbox);
+        this.myaccount_cc_expirydate_textbox=page.getByLabel(myaccountpage_locator.myaccount_cc_expirydate_textbox);
+        this.myaccount_cc_securitycode_textbox=page.getByLabel(myaccountpage_locator.myaccount_cc_securitycode_textbox);
+        this.myaccount_cc_savecard_button=page.getByRole('button', { name: myaccountpage_locator.myaccount_cc_savecard_button });
+        this.myaccount_savedefaultcc_checkbox=page.locator('form').getByRole(myaccountpage_locator.myaccount_savedefaultcc_checkbox);
     }
 
     async displayMyAccountLeftNavigationLink(){
@@ -373,6 +381,101 @@ exports.MyAccountPage = class MyAccountPage{
     async validateMyAccountDashboardNavigation(){
         await expect(this.page).toHaveURL(/.*dashboard/);
     }
+
+    async displaySavedCCHeaderText(){
+        const regex = new RegExp(`^${myaccountpage_locator.myaccount_savedcc_headertext}$`);
+        await expect(this.page.locator('section').filter({ hasText: regex })).toBeVisible();
+    }
+
+    async clickAddNewCC(){
+        await this.myaccount_savedcc_addccdebitcard_button.click();
+        
+    }
+
+    async validateSaveCreditCardPage(){
+        this.displaySavedCCHeaderText();
+        await expect(this.page.getByRole('list')).toContainText('HomeMy AccountSaved Credit Cards');
+        await expect(this.myaccount_savedcc_addccdebitcard_button).toBeVisible();
+    }
+
+    async validateExistingCCDetails(){
+        await expect(this.page.locator('body')).toContainText('Default Credit Card');
+        this.getCCNumber();
+        this.getCCExpDate();
+        
+
+    }
+
+    async getCCNumber(){
+        await this.myaccount_cc_savecard_number.waitFor({ state: 'visible' });
+        var cardNumber = await this.myaccount_cc_savecard_number.allTextContents();
+        //console.log('Credit Card Number:' + cardNumber);
+        return cardNumber;
+
+    }
+
+    async getCCExpDate(){
+        await this.myaccount_cc_savecard_expdate.waitFor({ state: 'visible' });
+        var cardExpDate = await this.myaccount_cc_savecard_expdate.allTextContents();
+        //console.log('Credit Card Number:' + cardExpDate);
+        return cardExpDate;
+
+    }
+
+    async displaySavedCCNewAddressOptions(){
+        const regex = new RegExp(`^${myaccountpage_locator.myaccount_savecc_newaddressradiobutton}$`);
+        await expect(this.page.locator('section').filter({ hasText: regex })).toBeVisible();
+    }
+
+    async displaySavedCCSavedAddressOptions(){
+        const regex = new RegExp(`^${myaccountpage_locator.myaccount_savecc_savedaddressradiobutton}$`);
+        await expect(this.page.locator('section').filter({ hasText: regex })).toBeVisible();
+    }
+
+    async enterCCNumber(enterCardNumber){
+        await this.myaccount_cc_cardnumber_textbox.fill(enterCardNumber);
+
+    }
+
+    async enterCCExpDate(enterCardExpDate){
+        await this.myaccount_cc_expirydate_textbox.fill(enterCardExpDate);
+    }
+
+    async enterCCSecurityCode(enterCardSecCode){
+        await this.myaccount_cc_securitycode_textbox.fill(enterCardSecCode);
+    }
+
+    async clickSaveCardButton(){
+        await this.myaccount_cc_savecard_button.click();
+    }
+
+    async validateNewCCSection(){
+        await expect(this.myaccount_cc_cardnumber_textbox).toBeVisible();
+        await expect(this.myaccount_cc_expirydate_textbox).toBeVisible();
+        await expect(this.myaccount_cc_securitycode_textbox).toBeVisible();
+        await expect(this.myaccount_cc_savecard_button).toBeVisible();
+        await this.displaySavedCCNewAddressOptions();
+        await this.displaySavedCCSavedAddressOptions();
+        await expect(this.myaccount_savedefaultcc_checkbox).toBeVisible();
+    }
+
+    async clickDefaultCCCheckbox(){
+        await this.myaccount_savedefaultcc_checkbox.click();
+    }
+
+    async validateAddNewCardMessage(addnewCardMessage){
+        await expect(this.page.locator('body')).toContainText(addnewCardMessage);
+    }
+
+    async validateAddNewCard(ccNumber,ccSecCode){
+        await expect(this.page.locator('body')).toContainText(ccNumber);
+        await expect(this.page.locator('body')).toContainText('Expires'+ " " + ccSecCode);
+
+    }
+
+    
+
+
 
     
 }

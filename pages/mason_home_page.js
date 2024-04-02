@@ -48,4 +48,8 @@ exports.HomePage = class HomePage{
         await this.homepage_signin.click();
     }
 
+    async closeSignedInDrawer(){
+        await this.page.getByRole('button').nth(1).click();
+    }
+
 }

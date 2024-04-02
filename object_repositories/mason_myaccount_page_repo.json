@@ -58,7 +58,19 @@
     "myaccount_orders_singleorderlookup" : "Single Order Lookup",
     "myaccount_singleorder_ordernumbertextbox" : "*Order Number",
     "myaccount_singleorder_billingzipcodetextbox" : "*Billing Zip Code",
-    "myaccount_singleorder_viewordersbutton" : "View Orders"
+    "myaccount_singleorder_viewordersbutton" : "View Orders",
+    "myaccount_savedcc_headertext" : "Saved Credit Cards",
+    "myaccount_default_CC_text": "Default Credit Card",
+    "myaccount_cc_cardnumber_textbox" : "*Card Number",
+    "myaccount_cc_expirydate_textbox" : "*Exp. Date (MM/YY)",
+    "myaccount_cc_securitycode_textbox" : "*Security Code",
+    "myaccount_cc_savecard_button" : "Save Card",
+    "myaccount_cc_savecard_number" : "(//p[@class='font-semibold'])[1]",
+    "myaccount_cc_savecard_expdate" : "//section[@class='text-base']/p[2]",
+    "myaccount_savedefaultcc_checkbox" : "checkbox",
+    "myaccount_savecc_newaddressradiobutton" : "New Address",
+    "myaccount_savecc_savedaddressradiobutton" : "Saved Address"
+
 
 
 
