@@ -50,7 +50,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
 }
     
   })
-  test("Display the Home Page",async({page},testInfo)=>{ 
+  test.only("Display the Home Page",async({page},testInfo)=>{ 
     test.slow();
     const homePage = new HomePage(page);
     await homePage.closeSignedInDrawer();
@@ -84,7 +84,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
            
   })
 
-  test("Validate user should be able to login in to site and navigate to My account",async({page},testInfo)=>{ 
+  test.only("Validate user should be able to login in to site and navigate to My account",async({page},testInfo)=>{ 
     //test.slow();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();
@@ -105,7 +105,7 @@ test.describe("Mason Commerce Tool Site", ()=>{
            
   })
 
-  test("Validate user should be able to add new address in My account",async({page},testInfo)=>{ 
+  test.only("Validate user should be able to add new address in My account",async({page},testInfo)=>{ 
     //test.slow();
     const myaccountPage = new MyAccountPage(page);
     await myaccountPage.displayMyAccountLeftNavigationLink();

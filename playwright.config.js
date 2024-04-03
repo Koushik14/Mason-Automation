@@ -47,7 +47,7 @@ export default defineConfig({
 
     // Collect trace when retrying the failed test.
     trace: 'on-first-retry',
-    //screenshot: 'only-on-failure',
+    screenshot: 'on',
     video: 'on',
     acceptDownloads: true,
     },
@@ -57,7 +57,7 @@ export default defineConfig({
       name: 'Mason Commerce Tool Site - Chrome Browser',
       use: {
         ...devices['Desktop Chrome'],
-        viewport: { width: 1920, height: 1080 },
+        //viewport: { width: 1920, height: 1080 },
         // launchOptions: {
         // args: ['--start-maximized']}
       },
